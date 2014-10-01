@@ -1,5 +1,5 @@
 #! /usr/bin/python
-
+# save unicode file
 # See README.txt for information and build instructions.
 
 import addressbook_pb2
@@ -8,7 +8,8 @@ import sys
 # This function fills in a Person message based on user input.
 def PromptForAddress(person):
   person.id = int(raw_input("Enter person ID number: "))
-  person.name = raw_input("Enter name: ")
+  person.name = raw_input("Enter name: ").decode('gb2312') 
+  
 
   email = raw_input("Enter email address (blank for none): ")
   if email != "":
@@ -31,7 +32,7 @@ def PromptForAddress(person):
       phone_number.type = addressbook_pb2.Person.WORK
     else:
       print "Unknown phone type; leaving as default value."
-  print person
+  
 
 # Main procedure:  Reads the entire address book from a file,
 #   adds one person based on user input, then writes it back out to the same
@@ -50,7 +51,7 @@ try:
   if size >0 :
   	print "id\tname"
   for one in address_book.person:
-  	print one.id,"\t",one.name
+  	print one.id,"\t",one.name.encode('gb2312')
   f.close()
 except IOError:
 	print sys.argv[1] + ": File not found.  Creating a new file."
